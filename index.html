@@ -2,18 +2,131 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Timer</title>
+    <style>
+
+    html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+    	margin: 0;
+    	padding: 0;
+    	border: 0;
+    	font-size: 100%;
+    	font-weight: normal;
+    	vertical-align: baseline;
+    	background: transparent;
+    }
+
+
+    .timeline-segment {
+      height: 100vh;
+      display: block;
+      position: absolute !important;
+    }
+
+    #timeline-elapsed {
+      width : 0px;
+      background-color: rgba(0, 0, 0,0.25);
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      pointer-events:none
+    }
+
+    #timeline-start {
+      background : #99ff6d;
+      width : 2%;
+      left: 0;
+      top : 0;
+    }
+
+    #timeline-middle  {
+      background : #eaeaea;
+      width : 96%;
+    }
+
+    #timeline-end {
+      background : #ff6d6d;
+      width : 2%;
+      right: 0;
+      top : 0;
+      z-index: 1;
+    }
+
+    #container {
+      width : 100vw;
+      height: 100vh;
+    }
+
+    #overlay {
+      width : 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .cc-container {
+      position: flex;
+
+    }
+    </style>
+
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <link href="js/jquery-ui/jquery-ui.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui/jquery-ui.js"></script>
+
+    <script>if (window.module) module = window.module;</script>
+
   </head>
-  <body style="-webkit-app-region: drag;-webkit-user-select: none; background:white">
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+  <body style="background:white" onload="init()">
+    <div id="container">
+      <div id="timeline-start" class="timeline-segment"></div><div id="timeline-end" class="timeline-segment"></div>
+      <div id = "timeline-elapsed" class="timeline-segment">
+        <div id = "overlay">
+          testing
+        </div>
+    </div>
   </body>
 
   <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
+
+    Tock = require ("tocktimer");
+
+    var timing = true;
+    var snd = new Audio("sounds/timer.mp3"); // buffers automatically when created
+
+    var startingTime = 60000;
+
+    var timer = new Tock({
+      countdown: true,
+      interval: 10,
+      callback: function() {
+        //
+        console.log(timer.lap() * 100 / startingTime) //
+        $("#timeline-elapsed").css("width", (100 - (timer.lap() * 100 / startingTime)) + "%");
+      },
+      complete: function() {
+        //
+        console.log("finished!")
+
+        snd.play();
+      }
+    });
+
+
+    $( "body" )
+  .mouseenter(function() {
+    //
+    $("#overlay").css("display", "block");
+    console.log("enter")
+  })
+  .mouseleave(function() {
+    //
+    $("#overlay").css("display", "none");
+    console.log("leave")
+  });
   </script>
 </html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <style>
+
+    #timeline-elapsed {
+      height: 100vh;
+      width : 30vw;
+      background-color: rgba(0, 0, 0,0.25);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    #timeline-start {
+      background : #99ff6d;
+      width : 2%;
+    }
+
+    #timeline-middle  {
+      background : #eaeaea;
+      width : 96%;
+    }
+
+    #timeline-end {
+      background : #ff6d6d;
+      width : 2%;
+    }
+
+    .overlay {
+      display: inline-block;
+      height: 100vh;
+      resize: horizontal;
+    }
+
+    #container {
+      text-align: center;
+      width : 100vw;
+      height: 100vh;
+    }
+    </style>
+    <script src="js/jquery-3.1.1.slim.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+  </head>
+  <body onload="init()">
+
+
+    <div id="container">
+      <span id="timeline-start" class="overlay"></span><span id="timeline-middle" class="overlay"></span><span id = "timeline-end" class="overlay"></span><span id = "timeline-elapsed"></span>
+    </div>
+
+
+
+    <script>
+    //var c = document.getElementById("canvas");
+    //var ctx = c.getContext('2d');
+/*--=Define with and Hight resize=--------------------------------------------*/
+    var width = $(window).width();
+    var height = $(window).height();
+    var resizeTimer;
+    $(window).resize(function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        //canvas
+        width = $(window).width();
+        height = $(window).height();
+        //c.width = width;
+        //c.height = height;
+        //
+      }, 100);
+    });
+/*--==------------------------------------------------------------------------*/
+    function draw() {
+      //ctx.clearRect(0,0,width,height);
+      //ctx.fillText()
+      //window.requestAnimationFrame(draw);
+    }
+
+/*--=define init function=----------------------------------------------------*/
+    function init() {
+      //$("#time-title").fitText(0.6);
+    }
+/*--=time functions=----------------------------------------------------------*/
+    var time = {
+      start : {
+        hr : 0,
+        min : 0
+      },
+      finish : {
+        hr : 0,
+        min : 0
+      }
+    }
+    </script>
+  </body>
+</html>
